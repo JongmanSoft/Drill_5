@@ -11,13 +11,10 @@ hand = load_image('hand_arrow.png')
 
 def handle_events():
     global running
-    global x, y
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             running = False
-        elif event.type == SDL_MOUSEMOTION:
-            x, y = event.x, TUK_HEIGHT - 1 - event.y
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
     pass
@@ -27,25 +24,29 @@ def handle_events():
 running = True
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 sx, sy = TUK_WIDTH // 2, TUK_HEIGHT // 2
-rx ,ry = random.randint(-500,500), random.randint(-500,500)
+rx ,ry = random.randint(200,700), random.randint(200,700)
 p =0
 frame = 0
 hide_cursor()
 
 while running:
+    print(rx,ry)
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    hand.draw(rx,ry)
     character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+
     update_canvas()
     frame = (frame + 1) % 8
     x = (1-p)*sx + p*rx
     y = (1 - p) * sy + p * ry
     p += 0.1
-    if (x== rx and y == ry):
+    if (p > 1.0):
         sx = x
         sy = y
-        rx = random.randint(-500,500)
-        ry = random.randint(-500, 500)
+        rx = random.randint(200,700)
+        ry = random.randint(200, 700)
+        p = 0
     handle_events()
 
 close_canvas()
