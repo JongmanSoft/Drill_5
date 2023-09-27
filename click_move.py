@@ -7,7 +7,7 @@ TUK_ground = load_image('TUK_GROUND.png')
 character = load_image('animation_sheet.png')
 hand = load_image('hand_arrow.png')
 
-goal =[(1280,1024)]
+goal =[(1280/2,1024/2)]
 def handle_events():
     global running
     global cursor_x, cursor_y
@@ -41,16 +41,17 @@ while running:
     for i in range (0,len(goal)):
         hand.draw(goal[i][0], goal[i][1])
     if (len(goal)>0):
-        if (goal[i][0] > x): character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+        if (goal[i][0] > sx): character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
         else :  character.clip_draw(frame * 100, 0, 100, 100, x, y)
         x = (1-p)*sx + p*goal[0][0]
         y = (1-p)*sy + p*goal[0][1]
-        p += 0.5
+        p += 0.05
         if (p>=1):
             p =0
             sx = goal[0][0]
             sy = goal[0][1]
-            
+            goal.pop(0)
+    else : character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
 
     hand.draw(cursor_x,cursor_y)
     update_canvas()
