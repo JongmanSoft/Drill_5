@@ -34,18 +34,19 @@ while running:
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     hand.draw(rx,ry)
-    character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+    if (sx<rx): character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+    else : character.clip_draw(frame * 100, 0, 100, 100, x, y)
 
     update_canvas()
     frame = (frame + 1) % 8
     x = (1-p)*sx + p*rx
     y = (1 - p) * sy + p * ry
-    p += 0.1
+    p += 0.05
     if (p > 1.0):
         sx = x
         sy = y
-        rx = random.randint(200,700)
-        ry = random.randint(200, 700)
+        rx = random.randint(100,1200)
+        ry = random.randint(100, 1000)
         p = 0
     handle_events()
 
