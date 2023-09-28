@@ -1,5 +1,5 @@
 import random
-#2022180029 이세영
+#2022180029 이세영 Drill5
 from pico2d import *
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
